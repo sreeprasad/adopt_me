@@ -4,8 +4,11 @@
         "es2021": true
     },
     "extends": [
+        "eslint:recommended",
+        "plugin:import/errors",
         "plugin:react/recommended",
-        "standard"
+        "plugin:jsx-a11y/recommended",
+        "prettier"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -15,8 +18,17 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react", 
+        "import",
+        "jsx-a11y"
     ],
     "rules": {
+        "react/prop-types": 0,
+        "react/react-in-jsx-scope": 0
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
     }
 }

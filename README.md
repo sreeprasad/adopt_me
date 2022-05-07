@@ -19,3 +19,8 @@
 6. npm install -D parcel@2.2.1
 
 7. npm install react@17.0.2 react-dom@17.0.2.
+
+8. to run server
+   npm run dev
+
+9.

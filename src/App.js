@@ -1,4 +1,6 @@
-/* global React ReactDOM */
+import React from 'react'
+import { render } from 'react-dom'
+
 // pet component
 const Pet = (props) => {
   return React.createElement('div', {}, [
@@ -20,4 +22,4 @@ const App = () => {
     React.createElement(Pet, { name: 'Bond', animal: 'Cat', breed: 'Mixed' })
   ])
 }
-ReactDOM.render(React.createElement(App), document.getElementById('root'))
+render(React.createElement(App), document.getElementById('root'))

@@ -15,3 +15,7 @@
    npx run lint -- fix
 
 5. npm init @eslint/config
+
+6. npm install -D parcel@2.2.1
+
+7. npm install react@17.0.2 react-dom@17.0.2.

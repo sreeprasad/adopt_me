@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react/cjs/react.development";
 
 import Pet from "./Pet";
+import useBreedList from "./useBreedList";
 
 const ANIMALS = ["bird", "dogs", "cat", "rabbit", "elephant"];
 
@@ -9,12 +10,12 @@ const SearchParams = () => {
   const [location, setLocation] = useState("");
   const [animal, setAnimal] = useState("");
   const [breed, setBreed] = useState("");
-  const breeds = [];
+  const [breeds] = useBreedList(animal);
   const [pets, setPets] = useState([]);
 
-    useEffect(() => {
-        requestPets();
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    requestPets();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   /* empty array above indicates invoke requestPets() only once at start 
     if instead, this field was empty, then each time anything changes
@@ -68,31 +69,30 @@ const SearchParams = () => {
         <label htmlFor="breed">
           Breed
           <select
-            id="breed"
             disabled={!breeds.length}
+            id="breed"
             value={breed}
             onChange={(e) => setBreed(e.target.value)}
             onBlur={(e) => setBreed(e.target.value)}
           >
             <option />
-            {breeds.map((allbreed) => (
-              <option key={allbreed} value={allbreed}>
-                {allbreed}
+            {breeds.map((breed) => (
+              <option key={breed} value={breed}>
+                {breed}
               </option>
             ))}
           </select>
         </label>
         <button>Submit</button>
       </form>
-    {
-        pets.map((pet) => (
-            <Pet 
-            name={pet.name} 
-            animal={pet.animal} 
-            breed={pet.breed} 
-            key={pet.id} />
-        ))
-    }
+      {pets.map((pet) => (
+        <Pet
+          name={pet.name}
+          animal={pet.animal}
+          breed={pet.breed}
+          key={pet.id}
+        />
+      ))}
     </div>
   );
 };

@@ -1,4 +1,6 @@
-import { useState } from "react/cjs/react.development";
+import { useState, useEffect } from "react/cjs/react.development";
+
+import Pet from "./Pet";
 
 const ANIMALS = ["bird", "dogs", "cat", "rabbit", "elephant"];
 
@@ -8,6 +10,26 @@ const SearchParams = () => {
   const [animal, setAnimal] = useState("");
   const [breed, setBreed] = useState("");
   const breeds = [];
+  const [pets, setPets] = useState([]);
+
+    useEffect(() => {
+        requestPets();
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  /* empty array above indicates invoke requestPets() only once at start 
+    if instead, this field was empty, then each time anything changes
+    then invoke requestPets()
+    if instead, this field was [breed], then when breed changes 
+    requestPets() will be invoked.
+   */
+
+  async function requestPets() {
+    const res = await fetch(
+      `http://pets-v2.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${breed}`
+    );
+    const json = await res.json();
+    setPets(json.pets);
+  }
 
   return (
     <div className="search-params">
@@ -47,15 +69,12 @@ const SearchParams = () => {
           Breed
           <select
             id="breed"
+            disabled={!breeds.length}
             value={breed}
-            onChange={(e) => {
-              setBreed(e.target.value);
-            }}
-            onBlur={(e) => {
-              setBreed(e.target.value);
-              setBreed();
-            }}
+            onChange={(e) => setBreed(e.target.value)}
+            onBlur={(e) => setBreed(e.target.value)}
           >
+            <option />
             {breeds.map((allbreed) => (
               <option key={allbreed} value={allbreed}>
                 {allbreed}
@@ -65,6 +84,15 @@ const SearchParams = () => {
         </label>
         <button>Submit</button>
       </form>
+    {
+        pets.map((pet) => (
+            <Pet 
+            name={pet.name} 
+            animal={pet.animal} 
+            breed={pet.breed} 
+            key={pet.id} />
+        ))
+    }
     </div>
   );
 };

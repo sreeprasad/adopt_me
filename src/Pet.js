@@ -1,7 +1,8 @@
 import React from "react";
 
 // Pet component.
-const Pet = ({ name, animal, breed, images, location, id }) => {
+const Pet = (props) => {
+  const { name, animal, breed, images, location, id } = props;
   let hero = "http://pets-images.dev-apis.com/pets/none.jpg";
   if (images.length) {
     hero = images[0];
@@ -14,7 +15,7 @@ const Pet = ({ name, animal, breed, images, location, id }) => {
       <div className="info">
         <h1>{name}</h1>
         <h2>
-          {animal} – {breed} – {location}
+          {`${animal} — ${breed} — ${location}`}
         </h2>
       </div>
     </a>
